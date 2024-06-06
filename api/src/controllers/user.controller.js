@@ -55,7 +55,7 @@ const register = asyncHandler(async (req, res) => {
 const login = asyncHandler(async (req, res) => {
   try {
     const { username, email, password } = req.body;
-
+    console.log(req);
     if (!password) {
       return res.status(400).json({ errorMessage: "Password is required" });
     }
@@ -82,9 +82,7 @@ const login = asyncHandler(async (req, res) => {
 
     return res
       .status(200)
-      .cookie("token", token, {
-        httpOnly: true,
-      })
+      .cookie("token", token)
       .json({ message: "User logged in", loggedInUser });
   } catch (error) {
     return res
