@@ -82,7 +82,7 @@ const login = asyncHandler(async (req, res) => {
 
     return res
       .status(200)
-      .cookie("token", token)
+      .cookie("token", token, { httpOnly: true, secure: true })
       .json({ message: "User logged in", loggedInUser });
   } catch (error) {
     return res
@@ -91,4 +91,11 @@ const login = asyncHandler(async (req, res) => {
   }
 });
 
-export { register, login };
+const logout = asyncHandler(async (req, res) => {
+  res
+    .status(200)
+    .clearCookie("token", { httpOnly: true, secure: true })
+    .json({ message: "User logged out successfully." });
+});
+
+export { register, login, logout };
